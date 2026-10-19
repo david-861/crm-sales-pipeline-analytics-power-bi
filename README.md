@@ -2,7 +2,9 @@
 
 A one-page Power BI dashboard that shows MavenTech's sales managers which agents, products, and offices drive revenue, and when in each quarter deals are actually won.
 
-![Dashboard: Weekly Trend view](assets/dashboard_weekly_trend.jpg)
+![Dashboard walkthrough](assets/dashboard_walkthrough.gif)
+
+**View interactive dashboard (best viewed on desktop):** [Open in Power BI](https://app.powerbi.com/view?r=eyJrIjoiZTE2MzNmYWItODIyYi00ODVkLWFlZGItMWRiOTg0MDJjNmY5IiwidCI6ImUwYTA4ZjRjLWI0YTctNGQxMy1iY2U2LTcyMWRhMWI0ZWQ0OSIsImMiOjEwfQ%3D%3D)
 
 ## Overview
 
@@ -33,7 +35,7 @@ Data quality fixes in Power Query:
 
 **Insight 1: Win Rate Climbs Through Every Quarter (Reference: Quarter-End Pattern view)**
 
-![Dashboard: Quarter-End Pattern view](assets/dashboard_quarter_end.jpg)
+![Dashboard: Quarter-End Pattern view](assets/dashboard_quarter_end.png)
 
 Win rate rises from 49.0% in the first month of each quarter to 54.7% in the second month and 80.7% in the third. The pattern repeats in every full quarter: from 48.6% in April to 82.8% in June, from 49.1% in July to 79.2% in September, and from 49.3% in October to 78.5% in December. Quarterly totals hide this swing, since Q2 to Q4 all sit between 60% and 62%. Won deals close at about 99% to 100% of list price every month, so discounting does not explain the spike. The sales cycle follows the same rhythm: deals won in the first month of a quarter closed in about 6 days on average, compared with 57 to 67 days in the other months, as if longer-running deals are pushed to close before quarter-end. The most likely driver is a quarter-end push tied to quarterly sales quotas, which is a hypothesis to confirm with the sales team.
 
@@ -60,7 +62,7 @@ Start with Recommendation 1, since the quarter-end pattern affects every product
 
 ## Data Model
 
-![Data Model](assets/data_model.jpg)
+![Data Model](assets/data_model.png)
 
 A star schema with one fact table (f_sales_pipeline, one row per opportunity) and four dimension tables (d_accounts, d_products, d_sales_teams, d_calendar). The calendar connects to close_date through an active relationship and to engage_date through an inactive one. All measures are stored in a separate _Measures table.
 
@@ -117,15 +119,16 @@ RETURN
 
 - **Power BI Desktop**: star schema modeling, active and inactive relationships, bookmarks and buttons, rule-based icon formatting, DAX-driven dynamic subtitles and bar/column colors, edit interactions
 - **Power Query**: null handling, text standardization, column cleanup, calendar columns (including Month of Quarter)
-- **DAX**: CALCULATE, ALL, ALLSELECTED, TOPN, MAXX, CONCATENATEX, DIVIDE, COUNTROWS, AVERAGEX, FILTER, DATEDIFF, SELECTEDVALUE, FORMAT, variables (VAR and RETURN)
+- **DAX**: CALCULATE, ALL, ALLSELECTED, TOPN, MAXX, CONCATENATEX, DIVIDE, COUNTROWS, AVERAGEX, FILTER, DATEDIFF, SELECTEDVALUE, FORMAT, SWITCH, ISFILTERED, variables (VAR and RETURN)
 - **Git & GitHub**: version control
 - **Business analysis & data storytelling**: turning KPIs and patterns into insights and recommendations
 
 ## Files
 
-- [`assets/dashboard_weekly_trend.jpg`](assets/dashboard_weekly_trend.jpg) - dashboard, Weekly Trend view
-- [`assets/dashboard_quarter_end.jpg`](assets/dashboard_quarter_end.jpg) - dashboard, Quarter-End Pattern view
-- [`assets/data_model.jpg`](assets/data_model.jpg) - the star schema data model
+- [`assets/dashboard_weekly_trend.png`](assets/dashboard_weekly_trend.png) - dashboard, Weekly Trend view
+- [`assets/dashboard_quarter_end.png`](assets/dashboard_quarter_end.png) - dashboard, Quarter-End Pattern view
+- [`assets/data_model.png`](assets/data_model.png) - the star schema data model
+- [`assets/dashboard_walkthrough.gif`](assets/dashboard_walkthrough.gif) - dashboard walkthrough (sped up)
 
 ## Data Source
 
@@ -145,3 +148,10 @@ The dataset page lists the license as Public Domain and data.world as the source
   - Corrected the report period to March 2017 to December 2017, based on the first closed deal (March 1, 2017).
   - Fixed the "technolgy" sector label in Power Query.
   - Removed unused measures and draft pages.
+- **v2.1 (October 2026):** Bug fixes and live version:
+  - Replaced static KPI text (Average Deal Size, Win Rate, Loss Rate, and both Sales Contribution values) with dynamic values that update with the Month slicer.
+  - Set the Total Revenue card to millions with 2 decimals.
+  - Made the main chart title follow the Month slicer.
+  - Fixed bar and column colors that showed differently in the Power BI service by removing leftover manual colors.
+  - Adjusted the product matrix spacing so it fits without scrollbars on the web.
+  - Published the dashboard to the web and added a GIF walkthrough.
